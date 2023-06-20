@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'boards:index' %}">
-            <img class="img-fluid rounded" src="../../static/images/logo.png"  alt="logos" width="89" height="42" >
+            <img class="img-fluid rounded" src="/static/images/logo.png"  alt="logos" width="89" height="42" >
             codingcity.net
         </a>
         <button class="navbar-toggler" type="button"
@@ -16,16 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    게시판
-                  </a>
-                  <ul class="dropdown-menu">
-                    {% for category in categories %}
-                      <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category }}({{ category.boards_set.count }})</a></li>
-                    {% endfor %}
-                  </ul>
-                </li>
+
 
                 <li class="nav-item">
                     {% if user.is_authenticated %}

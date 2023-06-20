@@ -5,7 +5,7 @@
 <div class="container my-3">
     <div class="row my-3">
         <div class="col-6">
-            <a href="{% url 'boards:question_create' %}" class="btn btn-success">질문 등록하기</a>
+            <a href="{% url 'boards:question_create' %}" class="btn btn-success">글 등록하기</a>
         </div>
         <div class="col-6">
             <div class="input-group">
@@ -18,20 +18,14 @@
     </div>
 
 
-    <table class="table table-success">
+ <table class="table" style="font-size: 12px">
         <thead>
             <tr class="text-center table-dark">
-                <th>대표</th>
-                <th>번호</th>
-                <th style="width:70%">제목</th>
-            </tr>
-        </thead>
-        <thead>
-            <tr class="text-center table-dark">
-                <th>img</th>
-                <th>글쓴이</th>
-                <th>작성일시 + 첨부파일</th>
-            </tr>
+            <th>#</th>
+            <th style="width:50%">제목</th>
+            <th>글쓴이</th>
+            <th>작성일시</th>
+        </tr>
         </thead>
         <tbody>
 
@@ -39,47 +33,31 @@
         {% for question in question_list %}
 
         <tr class="text-center">
-            <td>
-                {% if question.head_image %}
-                    <img  src="{{ question.head_image.url }}" alt="Card image cap" width="55" height="21">
-                {% else %}
-                    <img class="img-fluid rounded" src="../../static/images/logo.png"  alt="logos" width="55" height="21" >
-                {% endif %}
-            </td>
+
             <td>
                 <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
                 {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
             </td>
-            <td class="text-start">
+            <td class="text-start" style="font-size: 20px">
                 <a href="{% url 'boards:detail' question.id %}">{{ question.subject }}</a>
                 {% if question.answer_set.count > 0 %}
                  <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
                 {% endif %}
             </td>
-        </tr>
-        <tr class="text-center">
-            <td>-</td>
+
+
             <td>{{ question.author.username }}</td>  <!-- 글쓴이 추가 -->
-            <td class="text-start">{{ question.create_date }}
-                {% if question.file_upload %}
-                    <a href="{{ question.file_upload.url }}" class="btn btn-sm btn-outline-secondary " role="button" download>
-                    Files
-                    </a>
-                {% endif %}
-            </td>
-
-        </tr>
-        <tr>
-            <td>
+            <td class="text-start">{{ question.create_date | date:'Y-m-d H:i:s' }}
 
             </td>
+
         </tr>
 
 
         {% endfor %}
         {% else %}
         <tr>
-            <td colspan="4">질문이 없습니다.</td>
+            <td colspan="4">글이 없습니다.</td>
         </tr>
         {% endif %}
 

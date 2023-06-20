@@ -21,7 +21,7 @@
             {% if question.head_image %}
                 <img class="card-img-top" src="{{ question.head_image.url }}" alt="Card image cap">
             {% else %}
-                <img class="img-fluid rounded" src="../../static/images/logo.png"  alt="logos" width="222" height="105" >
+                <img class="img-fluid rounded" src="/static/images/logo.png"  alt="logos" width="222" height="105" >
             {% endif %}
             <div class="card-text" >{{ question.content|mark }}</div>
             <div class="d-flex justify-content-end">
@@ -50,7 +50,8 @@
                     <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
        data-uri="{% url 'boards:question_delete' question.id  %}">삭제</a>
                 {% endif %}
-
+             </div>
+             <div class="my-3">
                  {% if question.file_upload %}
                 <a href="{{ question.file_upload.url }}" class="btn btn-sm float-end btn-outline-secondary " role="button" download>
                     Download : {{ question.get_file_name }}
