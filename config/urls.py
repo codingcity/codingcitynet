@@ -35,8 +35,9 @@ handler404 = 'common.views.page_not_found'
 handler500 = 'common.views.internal_server_error'
 handler502 = 'common.views.bad_gateway'
 
+print("!!!!!!!111!!!!",settings.MEDIA_URL,"????????111????????")
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+print("!!!!!!!222!!!!",settings.MEDIA_URL,"?????????222???????")
 """
 urlpatterns += static(base.MEDIA_URL, document_root=base.MEDIA_ROOT)
 #print("!!!!!!!!!!!",urlpatterns,"????????????????")
