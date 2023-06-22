@@ -18,10 +18,15 @@
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">{{ post.created_at }}</div>
+                            <hr/>
+                            <div class="text-muted fst-italic mb-2">
+                                {{ post.created_at }} by <a href="#">{{ post.author }}</a>
+                            </div>
+                            <hr/>
+                                <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+                                <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+                            
                             <!-- Post categories-->
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
                         </header>
                         <!-- Preview image figure-->
                         {% if post.head_image %}
