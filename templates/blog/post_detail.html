@@ -21,11 +21,18 @@
                             <hr/>
                             <div class="text-muted fst-italic mb-2">
                                 {{ post.created_at }} by <a href="#">{{ post.author }}</a>
-                            </div>
-                            <hr/>
-                                <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                                <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
-                            
+
+
+
+                            {% if post.categoryblog %}
+
+                                <span class="badge bg-secondary float-end">{{ post.categoryblog }}</span>
+                            {% else %}
+
+                                <span class="badge bg-secondary float-end">미분류</span>
+                            {% endif %}
+                                 <hr/>
+</div>
                             <!-- Post categories-->
                         </header>
                         <!-- Preview image figure-->
@@ -104,28 +111,26 @@
                             </div>
                         </div>
                     </div>
+
+
                     <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categories</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">Web Design</a></li>
-                                        <li><a href="#!">HTML</a></li>
-                                        <li><a href="#!">Freebies</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">JavaScript</a></li>
-                                        <li><a href="#!">CSS</a></li>
-                                        <li><a href="#!">Tutorials</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="card my-4" id="categories-card">
+                    <h5 class="card-header">Categories</h5>
+                    <div class="card-body">
+                        <div class="row">
+                                        {% for category in categoriesblog %}
+                                        <li>
+                                                <a href="{{ category.get_absolute_url }}">{{ category }} ({{ category.post_set.count }})</a>
+                                        </li>
+                                        {% endfor %}
+                                        <li>
+                                            <a href="/blog/category/no_category/">미분류 ({{ no_categoryblog_post_count }})</a>
+                                        </li>
                         </div>
                     </div>
+                </div>
+
+
                     <!-- Side widget-->
                     <div class="card mb-4">
                         <div class="card-header">Side Widget</div>
