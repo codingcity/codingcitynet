@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from ..forms import QuestionForm
 from ..models import Question
-
+from django.conf import settings
 
 @login_required(login_url='common:login')
 def question_create(request):
@@ -55,7 +55,7 @@ def question_delete(request, question_id):
 def question_vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if request.user == question.author:
-        messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
+        messages.error(request, '본인이 작성한 글은 추천할수 없습니다'+settings.MEDIA_URL)
     else:
         question.voter.add(request.user)
     return redirect('boards:detail', question_id=question.id)
