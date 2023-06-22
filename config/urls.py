@@ -32,6 +32,8 @@ urlpatterns = [
 ]
 
 handler404 = 'common.views.page_not_found'
+handler500 = 'common.views.internal_server_error'
+
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
