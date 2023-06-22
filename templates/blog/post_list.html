@@ -18,7 +18,6 @@
                             <img class="card-img-top" src="/static/images/logo.jpg" alt="{{ p }} head image" />
                         {% endif %}
                         <div class="card-body">
-                            {{ p.head_image }}
                             <div class="small text-muted">{{ p.created_at }}</div>
                             <h2 class="card-title">{{ p.title }}</h2>
                             <p class="card-text">{{ p.content | truncatewords:30 }}</p>
