@@ -23,3 +23,6 @@ def page_not_found(request, exception):
 
 def internal_server_error(request):
     return render(request, 'common/500.html', {})
+
+def bad_gateway(request):
+    return render(request, 'common/502.html', {})
