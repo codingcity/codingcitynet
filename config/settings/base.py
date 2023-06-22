@@ -122,7 +122,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
@@ -145,8 +145,10 @@ LOGOUT_REDIRECT_URL = '/'
 
 #for media
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'_media')
 
+print("1111111111111111111",BASE_DIR,"2222222222222")
+MEDIA_ROOT = os.path.join(BASE_DIR,'_media')
+print("1111111111111111111",MEDIA_ROOT,"2222222222222")
 
 # for logging
 # 로깅설정
