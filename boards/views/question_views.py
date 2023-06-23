@@ -10,7 +10,7 @@ from django.conf import settings
 @login_required(login_url='common:login')
 def question_create(request):
     if request.method == 'POST':
-        form = QuestionForm(request.POST)
+        form = QuestionForm(request.POST, request.FILES)
         if form.is_valid():
             question = form.save(commit=False)
             question.author = request.user  # author 속성에 로그인 계정 저장
