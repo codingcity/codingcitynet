@@ -26,3 +26,6 @@ def internal_server_error(request):
 
 def bad_gateway(request):
     return render(request, 'common/502.html', {})
+
+def request_entity_too_large(request):
+    return render(request, 'common/413.html', {})

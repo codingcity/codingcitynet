@@ -32,6 +32,7 @@ urlpatterns = [
 ]
 
 handler404 = 'common.views.page_not_found'
+handler413 = 'common.views.request_entity_too_large'
 handler500 = 'common.views.internal_server_error'
 handler502 = 'common.views.bad_gateway'
 
