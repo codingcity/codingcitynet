@@ -41,9 +41,9 @@
             </td>
             <td>
                 {% if question.head_image %}
-                    <figure class="mb-4"><img class="card-img-top" src="{{ question.head_image.url }}" alt="{{ post }} head image" height="30" /></figure>
+                    <figure class="mb-4"><img class="card-img-top" src="{{ question.head_image.url }}" alt="{{ post }} head image" width="40" height="30" /></figure>
                 {% else %}
-                    <figure class="mb-4"><img class="card-img-top" src="/static/images/logo.jpg" alt="{{ post }} head image"  height="30"/></figure>
+                    <figure class="mb-4"><img class="card-img-top" src="/static/images/logo.jpg" alt="{{ post }} head image"  width="40" height="30"/></figure>
                 {% endif %}
             </td>
             <td class="text-start" style="font-size: 20px">

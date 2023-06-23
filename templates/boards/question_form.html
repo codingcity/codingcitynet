@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <h5 class="my-3 border-bottom pb-2">글 등록</h5>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
                 <!-- 오류표시 Start -->
@@ -19,6 +19,8 @@
         </div>
         {% endif %}
         <!-- 오류표시 End -->
+
+
         <div class="mb-3">
             <label for="subject" class="form-label">제목</label>
             <input type="text" class="form-control" name="subject" id="subject"
@@ -31,6 +33,19 @@
                       id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
         </div>
 
+      <div class="mb-3">
+                <div class="form-group">
+                    <label for="head_image" class="form-label">이미지</label>
+                    <input type="file" class="form-control" name="head_image" id="head_image">
+                </div>
+        </div>
+
+        <div class="mb-3">
+                <div class="form-group">
+                    <label for="file_upload" class="form-label">첨부파일</label>
+                    <input type="file" class="form-control" name="file_upload" id="file_upload">
+                </div>
+        </div>
 
 
 

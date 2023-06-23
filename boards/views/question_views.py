@@ -15,7 +15,6 @@ def question_create(request):
             question = form.save(commit=False)
             question.author = request.user  # author 속성에 로그인 계정 저장
             question.create_date = timezone.now()
-            #question.file_upload
             question.save()
             return redirect('boards:index')
     else:
