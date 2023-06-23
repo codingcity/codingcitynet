@@ -21,11 +21,11 @@ def signup(request):
 def page_not_found(request, exception):
     return render(request, 'common/404.html', {})
 
+def request_entity_too_large(request, exception):
+    return render(request, 'common/413.html', {})
+
 def internal_server_error(request):
     return render(request, 'common/500.html', {})
 
 def bad_gateway(request):
     return render(request, 'common/502.html', {})
-
-def request_entity_too_large(request):
-    return render(request, 'common/413.html', {})
