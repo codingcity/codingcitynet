@@ -22,17 +22,13 @@
                             <div class="text-muted fst-italic mb-2">
                                 {{ post.created_at }} by <a href="#">{{ post.author }}</a>
 
-
-
-                            {% if post.categoryblog %}
-
-                                <span class="badge bg-secondary float-end">{{ post.categoryblog }}</span>
-                            {% else %}
-
-                                <span class="badge bg-secondary float-end">미분류</span>
-                            {% endif %}
-                                 <hr/>
-</div>
+                                {% if post.categoryblog %}
+                                    <span class="badge bg-secondary float-end">{{ post.categoryblog }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary float-end">미분류</span>
+                                {% endif %}
+                                <hr/>
+                            </div>
                             <!-- Post categories-->
                         </header>
                         <!-- Preview image figure-->
@@ -56,6 +52,8 @@
                         <hr/>
 
                     </article>
+
+
                     <!-- Comments section-->
                     <section class="mb-5">
                         <div class="card bg-light">
@@ -99,6 +97,7 @@
                         </div>
                     </section>
                 </div>
+
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
@@ -136,6 +135,7 @@
                         <div class="card-header">Side Widget</div>
                         <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
                     </div>
+
                 </div>
             </div>
         </div>
