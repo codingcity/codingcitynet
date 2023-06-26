@@ -32,6 +32,9 @@ ALLOWED_HOSTS = ['54.164.103.70']
 # Application definition
 
 INSTALLED_APPS = [
+    'markdownx',
+    'crispy_bootstrap5',
+    'crispy_forms',
     'blog',
     'single_pages',
     'common.apps.CommonConfig',
@@ -212,3 +215,5 @@ LOGGING = {
         },
     }
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

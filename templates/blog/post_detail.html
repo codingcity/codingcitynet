@@ -47,7 +47,7 @@
                         <!-- Post content-->
                         <section class="mb-5">
                             <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-                            <p class="fs-5 mb-4">{{ post.content }}</p>
+                            <p class="fs-5 mb-4">{{ post.get_content_markdown | safe }}</p>
                         </section>
 
                         <hr/>

@@ -24,6 +24,7 @@ from .settings import base
 
 
 urlpatterns = [
+    path('markdownx/', include('markdownx.urls')),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('boards/', include('boards.urls')),
