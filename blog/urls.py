@@ -7,4 +7,6 @@ urlpatterns = [
     path('', views.PostList.as_view(), name='index'),
     path('<int:pk>/', views.PostDetail.as_view()),
     path('categoryblog/<str:slug>/', views.categoryblog_page),
+    path('create_post/', views.PostCreate.as_view()),
+    path('update_post/<int:pk>/', views.PostUpdate.as_view()),
 ]

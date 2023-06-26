@@ -6,7 +6,19 @@
         <div class="container">
             <div class="row">
 
+
+                <div>
+
+                    {% if user.is_authenticated%}
+                        {% if user.is_superuser or user.is_staff %}
+                            <a class="btn btn-success " href="/blog/create_post/" role="button">New Post</a>
+                        {% endif %}
+                    {% endif %}
+
                 <h1>Blog {% if categoryblog %}<span class="badge bg-secondary">{{ categoryblog }}</span>{% endif %}</h1>
+
+                </div>
+
                 <!-- Blog entries-->
                 <div class="col-lg-8">
                     {% if post_list.exists %}
