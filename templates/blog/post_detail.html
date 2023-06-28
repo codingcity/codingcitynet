@@ -133,11 +133,13 @@
                             {{ comment.content }}
                         </div>
                         <div class="d-flex justify-content-end">
-                            {% if comment.updated_at %}
-                            <div class="badge bg-light text-dark p-2 text-start mx-3">
-                                <div class="mb-2">updated at:</div>
-                                <div>{{ comment.updated_at }}</div>
-                            </div>
+                            {% if comment.modified_at %}
+                                {% if comment.created_at != comment.modified_at %}
+                                <div class="badge bg-light text-dark p-2 text-start mx-3">
+                                    <div class="mb-2">updated at:</div>
+                                    <div>{{ comment.modified_at }}</div>
+                                </div>
+                                {% endif %}
                             {% endif %}
                             <div class="badge bg-light text-dark p-2 text-start">
                                 <div class="mb-2">commented by {{ comment.author.username }}</div>
