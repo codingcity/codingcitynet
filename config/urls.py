@@ -30,7 +30,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('boards/', include('boards.urls')),
     path('common/', include('common.urls')),
-    path('', base_views.index, name='index'),  # '/' 에 해당되는 path
+#    path('', base_views.index, name='index'),  # '/' 에 해당되는 path
+    path('', include('single_pages.urls')),
 ]
 
 handler404 = 'common.views.page_not_found'

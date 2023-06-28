@@ -52,7 +52,7 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = MarkdownxField()#models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -61,3 +61,6 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return f'{self.post.get_absolute_url()}#comment-{self.pk}'
+
+    def get_content_markdown(self):
+        return markdown(self.content)

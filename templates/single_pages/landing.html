@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load boards_filter %}
+
+{% block css %}
+    <!-- landing CSS -->
+    <link rel="stylesheet" href="static/single_pages/landing.css" media="screen">
+{% endblock %}
+
+{% block head_title %}
+    welcome to codingcity.net
+{% endblock %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-6 text-light">
+                <h1 class="mt-5">codingcity.net</h1>
+                <p>당신을 위한 프로그래밍 학습 사이트</p>
+            </div>
+
+            <div class="col-lg-5 mt-5">
+                <h2 class="text-light">Blog - Recent posts</h2>
+                {% for post in recent_posts %}
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <h6><a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">{{ post.title }}</a></h6>
+                            <span class="badge badge-pill badge-light float-right">
+                                {{ post.author.username }}
+                                &nbsp;
+                                &nbsp;
+                                {{ post.created_at }}
+                           </span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-lg-5 mt-5">
+                <h2 class="text-light">Boards - Recent posts</h2>
+                {% for question in recent_questions %}
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <h6><a href="{{ question.get_absolute_url }}" class="text-decoration-none text-dark">{{ question.subject }}</a></h6>
+                            <span class="badge badge-pill badge-light float-right">
+                                {{ question.author.username }}
+                                &nbsp;
+                                &nbsp;
+                                {{ question.create_date }}
+                           </span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
