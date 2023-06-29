@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post, Categoryblog, Comment
+from .models import Post, Categoryblog, Comment, Feedback
 from django.shortcuts import get_object_or_404
 
 from django.core.exceptions import PermissionDenied
 
-from .forms import CommentForm
+from .forms import CommentForm, FeedbackForm
 from django.db.models import Q
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
@@ -134,3 +134,43 @@ class PostSearch(PostList):
         context['search_info'] = f'Search: {q} ({self.get_queryset().count()})'
 
         return context
+
+
+
+def new_feedback(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=pk)
+
+        if request.method == 'POST':
+            feedback_form = FeedbackForm(request.POST)
+            if feedback_form.is_valid():
+                feedback = feedback_form.save(commit=False)
+                feedback.post = post
+                feedback.author = request.user
+                feedback.save()
+                return redirect(feedback.get_absolute_url())
+        else:
+            return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
+
+
+class FeedbackUpdate(LoginRequiredMixin, UpdateView):
+    model = Feedback
+    form_class = FeedbackForm
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(FeedbackUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+def delete_feedback(request, pk):
+    feedback = get_object_or_404(Feedback, pk=pk)
+    comment = feedback.comment
+
+    if request.user.is_authenticated and request.user == feedback.author:
+        feedback.delete()
+        return redirect(comment.get_absolute_url())
+    else:
+        raise PermissionDenied

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %}Edit Feedback - Blog{% endblock %}
+
+{% block content %}
+    <h1>Edit Feedback</h1>
+    <hr/>
+    <form method="post" id="feedback-form">{% csrf_token %}
+        {{ form | crispy }}
+        <br/>
+        <button type="submit" class="btn btn-primary float-end">Submit</button>
+    </form>
+{% endblock %}
+
+

@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['54.164.103.70']
 
+APPEND_SLASH = True
+#APPEND_SLASH = False
 
 # Application definition
 

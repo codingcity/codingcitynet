@@ -49,7 +49,6 @@
 
                         <!-- Post content-->
                         <section class="mb-5">
-                            <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
                             <p class="fs-5 mb-4">{{ post.get_content_markdown | safe }}</p>
                         </section>
 
@@ -76,6 +75,9 @@
                             <h5 class="card-header">Leave a Comment:</h5>
                             <div class="card-body">
                                 {% if user.is_authenticated %}
+
+                                {{ post.get_absolute_url }}
+
                                     <form id="comment-form" method="POST" action="{{ post.get_absolute_url }}/new_comment/">
                                         {% csrf_token %}
                                         <div class="form-group">
@@ -95,6 +97,10 @@
 
 
          <h5 class="border-bottom my-3 py-2">{{post.comment_set.count}}개의 질문이 있습니다.</h5>
+
+
+
+
         {% if post.comment_set.exists %}
             {% for comment in post.comment_set.iterator %}
 
@@ -103,7 +109,7 @@
 
 
                         <div class="card-text" style="white-space: pre-line;">
-                            {{ comment.get_content_markdown | safe}}
+                            {{ comment.content}}
                         </div>
 
                         <div class="d-flex justify-content-end">
@@ -157,8 +163,128 @@
                                 </div>
                             {% endif %}
                         </div>
+
+
+
+
+
+                {% if not comment.feedback_set.exists %}
+                 <!-- Feedback Form -->
+                        {% if user.is_authenticated and user.is_staff %}
+
+                        <div class="card my-4">
+                            <h5 class="card-header">Leave a Feedback:</h5>
+                            <div class="card-body">
+
+                                       <form id="feedback-form" method="POST" action="{{ comment.get_absolute_url }}/new_feedback/">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            {{ comment_form | crispy }}
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+
+
+                            </div>
+                        </div>
+                         {% endif %}
+                {% endif %}
+
+
+
+                                                <!-- feedback -->
+                        {% if comment.feedback_set.exists %}
+                            {% for feedback in comment.feedback_set.iterator %}
+
+                                <div class="card my-3">
+                                    <div class="card-body">
+
+                                         <div class="badge bg-light text-dark p-2 text-start">
+                                                <div class="mb-2">{{ comment.author.username }}님의 질문에 대한 {{ feedback.author.username }}님의 피드백</div>
+                                        </div>
+
+                                        <div class="card-text" style="white-space: pre-line;">
+                                            {{ feedback.content}}
+                                        </div>
+
+                                        <div class="d-flex justify-content-end">
+                                            {% if feedback.modified_at %}
+                                                {% if feedback.created_at != feedback.modified_at %}
+                                                <div class="badge bg-light text-dark p-2 text-start mx-3">
+                                                    <div class="mb-2">updated at:</div>
+                                                    <div>{{ feedback.modified_at }}</div>
+                                                </div>
+                                                {% endif %}
+                                            {% endif %}
+                                            <div class="badge bg-light text-dark p-2 text-start">
+                                                <div class="mb-2">feedback by {{ feedback.author.username }}</div>
+                                                <div>{{ feedback.created_at  }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="my-3">
+                                            {% if user.is_authenticated and feedback.author == user %}
+                                                {% if user.is_superuser or user.is_staff %}
+                                                <a role="button"
+                                                   class="btn btn-sm btn-info"
+                                                   id="feedback-{{ feedback.pk }}-update-btn"
+                                                   href="/blog/update_feedback/{{ feedback.pk }}/">
+                                                    edit
+                                                </a>
+                                                <a role="button"
+                                                   href="#"
+                                                   id="feedback-{{ feedback.pk }}-delete-modal-btn"
+                                                   class="btn btn-sm btn-danger"
+                                                   data-toggle="modal" data-target="#deleteFeedbackModal-{{ feedback.pk }}">
+                                                    delete
+                                                </a>
+                                                                       <!-- Modal -->
+                                                <div class="modal fade" id="deleteFeedbackModal-{{ feedback.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteFeedbackModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="feedbackModalLabel">Are You Sure?</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <del>{{ feedback | linebreaks }}</del>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                <a role="button" class="btn btn-danger" href="/blog/delete_feedback/{{ feedback.pk }}/">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                        {% endif %}
+
+                        <!-- feedback end-->
+
+
+
+
+
+
+
+
+
+
+
                     </div>
                 </div>
+
+
+
+
+
 
             {% endfor %}
         {% endif %}

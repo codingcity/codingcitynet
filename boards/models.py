@@ -1,16 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 import os
+from django.urls import reverse
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+    name = models.CharField(max_length=20, unique=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    has_answer = models.BooleanField(default=True)  # 답변가능 여부
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        verbose_name_plural = 'categories'
+    def get_absolute_url(self):
+        return reverse('boards:index', args=[self.name])
 
 class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_question')
@@ -23,7 +25,7 @@ class Question(models.Model):
     head_image = models.ImageField(upload_to='boards/images/%Y/%m/%d/', blank=True)
     file_upload = models.FileField(upload_to='boards/files/%Y/%m/%d/', blank=True)
 
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category_question')
 
     def __str__(self):
         return self.subject
@@ -33,6 +35,10 @@ class Question(models.Model):
 
     def get_file_ext(self):
         return self.get_file_name().split('.')[-1]
+
+
+    def get_absolute_url(self):
+        return f'/boards/{self.pk}'
 
 #    def get_absolute_url(self):
 #        return reverse('boards:question_detail', args=[self.id])

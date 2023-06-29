@@ -4,8 +4,24 @@
 
 <div class="container my-3">
     <div class="row my-3">
-        <div class="col-6">
-            <a href="{% url 'boards:question_create' %}" class="btn btn-success">글 등록하기</a>
+        <div class="col-6"><!-- comment -->
+
+
+            {% if user.is_authenticated%}
+                {% if category.description == '공지사항' %}
+                    {% if user.is_superuser or user.is_staff %}
+                        <a href="{% url 'boards:question_create' category %}" class="btn btn-success">{{ category.description }} 글 등록하기</a>
+                    {% else %}
+
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'boards:question_create' category %}" class="btn btn-success">{{ category.description }} 글 등록하기</a>
+                {% endif %}
+
+            {% else %}
+
+            {% endif %}
+
         </div>
         <div class="col-6">
             <div class="input-group">
@@ -18,55 +34,75 @@
     </div>
 
 
+<ul class="nav nav-tabs">
+        {% for cat in category_list %}
+            {% if cat == category %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ cat.get_absolute_url }}">{{ cat.description }}</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ cat.get_absolute_url }}">{{ cat.description }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+</ul>
+
+
  <table class="table" style="font-size: 12px">
         <thead>
             <tr class="text-center table-dark">
-            <th>#</th>
-                <th style="width:50px">Himg</th>
-            <th style="width:50%">제목</th>
-            <th>글쓴이</th>
-            <th>작성일시</th>
-        </tr>
+                <th>#</th>
+                    <th style="width:50px">Himg</th>
+                <th style="width:50%">제목</th>
+                <th>글쓴이</th>
+                <th>작성일시</th>
+            </tr>
         </thead>
         <tbody>
 
         {% if question_list %}
-        {% for question in question_list %}
-
-        <tr class="text-center">
-
-            <td>
-                <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
-                {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
-            </td>
-            <td>
-                {% if question.head_image %}
-                    <figure class="mb-4"><img class="card-img-top" src="{{ question.head_image.url }}" alt="{{ post }} head image" width="40" height="30" /></figure>
-                {% else %}
-                    <figure class="mb-4"><img class="card-img-top" src="/static/images/logo.jpg" alt="{{ post }} head image"  width="40" height="30"/></figure>
-                {% endif %}
-            </td>
-            <td class="text-start" style="font-size: 20px">
-
-                <a href="{% url 'boards:detail' question.id %}">{{ question.subject }}</a>
-                {% if question.answer_set.count > 0 %}
-                 <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
-                {% endif %}
-            </td>
+            {% for question in question_list %}
 
 
-            <td>{{ question.author.username }}</td>  <!-- 글쓴이 추가 -->
-            <td class="text-start">{{ question.create_date | date:'Y-m-d H:i:s' }}
+                    {% if category.description == question.category.description %}
+                    <tr class="text-center">
 
-            </td>
+                        <td>
+                            <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+                            {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
+                        </td>
+                        <td>
 
-        </tr>
+                            {% if question.head_image %}
+                                <figure class="mb-4"><img class="card-img-top" src="{{ question.head_image.url }}" alt="{{ post }} head image" width="40" height="30" /></figure>
+                            {% else %}
+                                <figure class="mb-4"><img class="card-img-top" src="/static/images/logo.jpg" alt="{{ post }} head image"  width="40" height="30"/></figure>
+                            {% endif %}
+
+                        </td>
+                        <td class="text-start" style="font-size: 20px">
+
+                            <a href="{% url 'boards:detail' question.id %}">{{ question.subject }}</a>
+                            {% if question.answer_set.count > 0 %}
+                             <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
+                            {% endif %}
+                        </td>
 
 
-        {% endfor %}
+                        <td>{{ question.author.username }}</td>  <!-- 글쓴이 추가 -->
+                        <td class="text-start">
+                            {{ question.create_date | date:'Y-m-d H:i:s' }}
+                        </td>
+
+
+                    </tr>
+
+                    {% endif %}
+            {% endfor %}
         {% else %}
         <tr>
-            <td colspan="4">글이 없습니다.</td>
+            <td colspan="5">글이 없습니다.</td>
         </tr>
         {% endif %}
 

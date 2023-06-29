@@ -10,8 +10,9 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer)
 
-
+"""
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
+"""
 
-admin.site.register(Category, CategoryAdmin)
+admin.site.register(Category) #, CategoryAdmin)
