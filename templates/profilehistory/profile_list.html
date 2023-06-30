@@ -18,14 +18,14 @@
 
               {% for p in profile_list %}
                 {% if user.is_authenticated%}
-                    {% if user == p.thisuser %}
+                    {% if user == p.thisuser or user.is_staff %}
                         <tr>
-                          <td>
+                          <td>#{{p.pk}} -  
                               <a href="{{ p.get_absolute_url }}">
                                 {{p.intro}}
                               </a>
                           </td>
-                          <td>{{p.created_at}}</td>
+                          <td>{{p.created_at}} made by {{p.thisuser}}</td>
                         </tr>
                     {% endif %}
                 {% endif %}
