@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load boards_filter %}
+
+{% block head_title %}
+    {{ profile.intro }} - Blog
+{% endblock %}
+
+{% block content %}
+
+    <h1>Create New Profile</h1>
+    <hr/>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form | crispy }}
+        </table>
+
+        <br/>
+
+        <button type="submit" class="btn btn-success float-end">저장하기</button>
+    </form>
+    {{ form.media }}
+
+{% endblock %}

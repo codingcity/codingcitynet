@@ -35,6 +35,8 @@ APPEND_SLASH = True
 
 INSTALLED_APPS = [
 
+    'profilehistory',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -226,7 +228,7 @@ LOGGING = {
     }
 }
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5' #5.1.3
 
 
 AUTHENTICATION_BACKENDS = [

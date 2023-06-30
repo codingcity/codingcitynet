@@ -93,10 +93,11 @@
                                         <figure class="mb-4"><img src="/static/images/logo.jpg" alt="{{ post }} head image" width="70" height="40" ></figure>
                                     {% endif %}
                                 </div>
-                                <div class="col-6">
+                                <div class="col">
                                     <h6><a href="{{ question.get_absolute_url }}" class="text-decoration-none text-dark">[{{ question.category }}] {{ question.subject }}</a></h6>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col"></div>
                                     <div class="col">
                                         <span class="badge badge-pill badge-light float-right">
                                             {{ question.author.username }}
@@ -105,8 +106,7 @@
                                             {{ question.create_date }}
                                        </span>
                                     </div>
-                                <div class="col"></div>
-
+                                </div>
                             </div>
 
 
