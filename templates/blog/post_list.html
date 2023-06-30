@@ -47,7 +47,7 @@
 
                             <h2 class="card-title">{{ p.title }}</h2>
                             <p class="card-text">{{ p.get_content_markdown | truncatewords_html:30 | safe }}</p>
-                            <a class="btn btn-primary" href="{{ p.get_absolute_url }}">Read more →</a>
+                            <a class="btn btn-success" href="{{ p.get_absolute_url }}">Read more →</a>
                         </div>
 
                         <div class="card-footer text-muted">
