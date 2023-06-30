@@ -13,6 +13,9 @@ class Profile(models.Model):
     intro = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    public_approved = models.BooleanField(default=False)
+    birthdate = models.DateField(null=True)
+
     def __str__(self):
         return f'[{self.pk}] {self.thisuser} : {self.intro}'
 

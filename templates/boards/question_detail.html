@@ -39,7 +39,7 @@
                     </div>
                 {% endif %}
                 <div class="badge bg-light text-dark p-2 text-start">
-                        <div class="mb-2">{{ question.author.username }}</div>
+                        <div class="mb-2"><a href="{% url 'profilehistory:profile_find' question.author %}">{{ question.author.username }}</a></div>
                         <div>{{ question.create_date }}</div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     </div>
                 {% endif %}
                 <div class="badge bg-light text-dark p-2 text-start">
-                    <div class="mb-2">{{ answer.author.username }}</div>
+                    <div class="mb-2"><a href="{% url 'profilehistory:profile_find' answer.author %}">{{ answer.author.username }}</a></div>
                     <div>{{ answer.create_date }}</div>
                 </div>
             </div>

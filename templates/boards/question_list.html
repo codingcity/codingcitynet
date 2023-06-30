@@ -90,7 +90,7 @@
                         </td>
 
 
-                        <td>{{ question.author.username }}</td>  <!-- 글쓴이 추가 -->
+                        <td><a href="{% url 'profilehistory:profile_find' question.author %}">{{ question.author.username }}</a></td>  <!-- 글쓴이 추가 -->
                         <td class="text-start">
                             {{ question.create_date | date:'Y-m-d H:i:s' }}
                         </td>

@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="card-footer text-muted">
-                            Posted on {{ p.created_at }} by <a href="#">{{ p.author }}</a>
+                            Posted on {{ p.created_at }} by <a href="{% url 'profilehistory:profile_find' p.author %}">{{ p.author }}</a>
                         </div>
                     </div>
                         {% endfor %}

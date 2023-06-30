@@ -28,7 +28,7 @@
                             <!-- Post meta content-->
                             <hr/>
                             <div class="text-muted fst-italic mb-2">
-                                {{ post.created_at }} by <a href="#">{{ post.author }}</a>
+                                {{ post.created_at }} by <a href="{% url 'profilehistory:profile_find' post.author %}">{{ post.author }}</a>
 
                                 {% if post.categoryblog %}
                                     <span class="badge bg-secondary float-end">{{ post.categoryblog }}</span>
@@ -122,7 +122,7 @@
                                 {% endif %}
                             {% endif %}
                             <div class="badge bg-light text-dark p-2 text-start">
-                                <div class="mb-2">commented by {{ comment.author.username }}</div>
+                                <div class="mb-2">commented by <a href="{% url 'profilehistory:profile_find' comment.author %}">{{ comment.author.username }}</a></div>
                                 <div>{{ comment.created_at  }}</div>
                             </div>
                         </div>
@@ -217,7 +217,7 @@
                                                 {% endif %}
                                             {% endif %}
                                             <div class="badge bg-light text-dark p-2 text-start">
-                                                <div class="mb-2">feedback by {{ feedback.author.username }}</div>
+                                                <div class="mb-2">feedback by <a href="{% url 'profilehistory:profile_find' feedback.author %}">{{ feedback.author.username }}</a></div>
                                                 <div>{{ feedback.created_at  }}</div>
                                             </div>
                                         </div>
