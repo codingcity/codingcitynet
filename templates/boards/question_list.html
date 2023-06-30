@@ -15,7 +15,7 @@
 
                     {% endif %}
                 {% else %}
-                    <a href="{% url 'boards:question_create' category %}" class="btn btn-success">{{ category.description }} 글 등록하기</a>
+                    <a href="{% url 'boards:question_create' category %}" class="btn btn-success">{{ category.description }} - 글 등록하기</a>
                 {% endif %}
 
             {% else %}
@@ -38,11 +38,11 @@
         {% for cat in category_list %}
             {% if cat == category %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ cat.get_absolute_url }}">{{ cat.description }}</a>
+                    <a class="nav-link active" aria-current="page" href="{{ cat.get_absolute_url }}">{{ cat.description }} / </a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ cat.get_absolute_url }}">{{ cat.description }}</a>
+                    <a class="nav-link" href="{{ cat.get_absolute_url }}">{{ cat.description }} / </a>
                 </li>
             {% endif %}
         {% endfor %}

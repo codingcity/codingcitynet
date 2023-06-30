@@ -76,7 +76,7 @@
                             <div class="card-body">
                                 {% if user.is_authenticated %}
 
-                                {{ post.get_absolute_url }}
+
 
                                     <form id="comment-form" method="POST" action="{{ post.get_absolute_url }}/new_comment/">
                                         {% csrf_token %}

@@ -18,42 +18,105 @@
         <div class="row justify-content-between">
             <div class="col-lg-6 text-light">
                 <h1 class="mt-5">codingcity.net</h1>
-                <p>당신을 위한 프로그래밍 학습 사이트</p>
+                <p>우리의 프로그래밍 학습 네트워크 사이트</p>
             </div>
 
+            <!-- 최근 강의 -->
             <div class="col-lg-5 mt-5">
-                <h2 class="text-light">Blog - Recent posts</h2>
+                <h2 class="text-light">최근 강의</h2>
                 {% for post in recent_posts %}
                     <div class="card mt-1">
                         <div class="card-body">
-                            <h6><a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">{{ post.title }}</a></h6>
+
+                            <div class="row">
+                                <div class="col-2">
+                                    {% if post.head_image %}
+                                        <figure class="mb-4"><img src="{{ post.head_image.url }}" alt="{{ post }} head image" width="70" height="40" ></figure>
+                                    {% else %}
+                                        <figure class="mb-4"><img src="/static/images/logo.jpg" alt="{{ post }} head image" width="70" height="40" ></figure>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    <h6><a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">[{{ post.categoryblog }}] {{ post.title }}</a></h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col"></div>
+                                    <div class="col">
+                                        <span class="badge badge-pill badge-light float-right">
+                                        post by {{ post.author.username }}
+                                    &nbsp;
+                                    &nbsp;
+                                        {{ post.created_at }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- 최근 강의 끝 -->
+
+            <!-- 최근 질문 -->
+            <div class="col-lg-5 mt-5">
+                <h2 class="text-light">최근 질문</h2>
+                {% for comments in recent_comments %}
+                    <div class="card mt-1">
+                        <div class="card-body">
+
+                            <h6><a href="{{ comments.get_absolute_url }}" class="text-decoration-none text-dark">[{{ comments.post.categoryblog }}] {{ comments.content }}</a></h6>
                             <span class="badge badge-pill badge-light float-right">
-                                {{ post.author.username }}
+                                {{ comments.author.username }}
                                 &nbsp;
                                 &nbsp;
-                                {{ post.created_at }}
+                                {{ comments.created_at }}
                            </span>
                         </div>
                     </div>
                 {% endfor %}
             </div>
+            <!-- 최근 댓글 끝 -->
 
+            <!-- 최근 게시물 -->
             <div class="col-lg-5 mt-5">
-                <h2 class="text-light">Boards - Recent posts</h2>
+                <h2 class="text-light">최근 게시물</h2>
                 {% for question in recent_questions %}
                     <div class="card mt-1">
                         <div class="card-body">
-                            <h6><a href="{{ question.get_absolute_url }}" class="text-decoration-none text-dark">{{ question.subject }}</a></h6>
-                            <span class="badge badge-pill badge-light float-right">
-                                {{ question.author.username }}
-                                &nbsp;
-                                &nbsp;
-                                {{ question.create_date }}
-                           </span>
+
+                            <div class="row row-cols-4">
+                                <div class="col-2">
+                                    {% if question.head_image %}
+                                        <figure class="mb-4"><img src="{{ question.head_image.url }}" alt="{{ post }} head image" width="70" height="40" ></figure>
+                                    {% else %}
+                                        <figure class="mb-4"><img src="/static/images/logo.jpg" alt="{{ post }} head image" width="70" height="40" ></figure>
+                                    {% endif %}
+                                </div>
+                                <div class="col-6">
+                                    <h6><a href="{{ question.get_absolute_url }}" class="text-decoration-none text-dark">[{{ question.category }}] {{ question.subject }}</a></h6>
+                                </div>
+
+                                    <div class="col">
+                                        <span class="badge badge-pill badge-light float-right">
+                                            {{ question.author.username }}
+
+
+                                            {{ question.create_date }}
+                                       </span>
+                                    </div>
+                                <div class="col"></div>
+
+                            </div>
+
+
                         </div>
                     </div>
                 {% endfor %}
             </div>
+            <!-- 최근 게시물 끝 -->
+
+
 
         </div>
     </div>
