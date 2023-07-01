@@ -105,7 +105,9 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user == self.get_object().author:
-            return super(CommentUpdate, self).dispatch(request, *args, **kwargs)
+            b = super(CommentUpdate, self).dispatch(request, *args, **kwargs)
+            print('bbbbbbbbbbbbbbbbbbbbbbbbbbbb',b)
+            return b
         else:
             raise PermissionDenied
 

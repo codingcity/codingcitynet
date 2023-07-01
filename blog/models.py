@@ -78,8 +78,8 @@ class Feedback(models.Model):
         return f'{self.author}::{self.content}'
 
     def get_absolute_url(self):
-        return f''
-    #    return f'{self.comment.get_absolute_url()}#feedback-{self.pk}'
+        #return f''
+        return f'{self.comment.get_absolute_url()}#feedback-{self.pk}'
 
 
     def get_content_markdown(self):
