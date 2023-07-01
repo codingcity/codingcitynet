@@ -139,20 +139,22 @@ class PostSearch(PostList):
 
 def new_feedback(request, pk):
     if request.user.is_authenticated:
-        post = get_object_or_404(Post, pk=pk)
+        comment = get_object_or_404(Comment, pk=pk)
 
         if request.method == 'POST':
             feedback_form = FeedbackForm(request.POST)
             if feedback_form.is_valid():
                 feedback = feedback_form.save(commit=False)
-                feedback.post = post
+                feedback.comment = comment
                 feedback.author = request.user
                 feedback.save()
-                return redirect(feedback.get_absolute_url())
+                return redirect(comment.get_absolute_url())
         else:
-            return redirect(post.get_absolute_url())
+            return redirect(comment.get_absolute_url())
     else:
         raise PermissionDenied
+
+
 
 
 class FeedbackUpdate(LoginRequiredMixin, UpdateView):
