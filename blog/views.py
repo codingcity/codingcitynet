@@ -57,6 +57,7 @@ class PostDetail(DetailView):
         context['categoriesblog'] = Categoryblog.objects.all()
         context['no_categoryblog_post_count'] = Post.objects.filter(categoryblog=None).count()
         context['comment_form'] = CommentForm
+        context['feedback_Form'] = FeedbackForm
         return context
 
 def categoryblog_page(request, slug):
@@ -156,16 +157,21 @@ def new_feedback(request, pk):
 
 
 
-
 class FeedbackUpdate(LoginRequiredMixin, UpdateView):
     model = Feedback
     form_class = FeedbackForm
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user == self.get_object().author:
-            return super(FeedbackUpdate, self).dispatch(request, *args, **kwargs)
+            print("!!!!!!!!!!!!!!111")
+            a = super(FeedbackUpdate, self).dispatch(request, *args, **kwargs)
+            print('???????????????',a)
+            return a
         else:
+            print("!!!!!!!!!!!!!!2222")
             raise PermissionDenied
+
+    print("!!!!!!!!!!!!!!333")
 
 def delete_feedback(request, pk):
     feedback = get_object_or_404(Feedback, pk=pk)
