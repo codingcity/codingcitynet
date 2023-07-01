@@ -18,7 +18,6 @@ urlpatterns = [
     path('delete_comment/<int:pk>/', views.delete_comment),
 
     path('<int:pk>/new_feedback/', views.new_feedback),
-    #path('new_feedback/<int:pk>/', views.new_feedback),
     path('update_feedback/<int:pk>/', views.FeedbackUpdate.as_view()),
     path('delete_feedback/<int:pk>/', views.delete_feedback),
 

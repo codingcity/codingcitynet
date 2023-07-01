@@ -105,9 +105,7 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user == self.get_object().author:
-            b = super(CommentUpdate, self).dispatch(request, *args, **kwargs)
-            print('bbbbbbbbbbbbbbbbbbbbbbbbbbbb',b)
-            return b
+            return super(CommentUpdate, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
 
@@ -165,15 +163,10 @@ class FeedbackUpdate(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user == self.get_object().author:
-            print("!!!!!!!!!!!!!!111")
-            a = super(FeedbackUpdate, self).dispatch(request, *args, **kwargs)
-            print('???????????????',a)
-            return a
+            return super(FeedbackUpdate, self).dispatch(request, *args, **kwargs)
         else:
-            print("!!!!!!!!!!!!!!2222")
             raise PermissionDenied
 
-    print("!!!!!!!!!!!!!!333")
 
 def delete_feedback(request, pk):
     feedback = get_object_or_404(Feedback, pk=pk)
