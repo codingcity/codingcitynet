@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load boards_filter %}
+{% block content %}
+
+
+
+
+
+<div class="container my-3">
+    <div class="row my-3">
+        <div class="col-12"><!-- comment -->
+                {% if paper_list %}
+                        {% if user.is_superuser or user.is_staff %}
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col-1">#</th>
+                              <th scope="col-3">From</th>
+                              <th scope="col-3">To</th>
+                              <th scope="col-2">Content</th>
+                              <th scope="col-2">Created</th>
+                            </tr>
+                          </thead>
+
+
+                        {% else %}
+                          <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col-1"><-></th>
+                              <th scope="col-3">From</th>
+                              <th scope="col-3">To</th>
+                              <th scope="col-2">Content</th>
+                              <th scope="col-2">Created</th>
+                            </tr>
+                          </thead>
+                        {% endif %}
+                    <tbody>
+                    {% for paper in paper_list %}
+
+                        {% if user.is_superuser or user.is_staff %}
+
+
+
+                            <tr>
+                              <th scope="row">{{paper.pk}}</th>
+                              <td>{{paper.sender}}</td>
+                              <td>{{paper.receiver}}</td>
+                              <td><a href="{% url 'memo:detail' paper.pk %}">{{ paper.content | truncatewords_html:5 | safe }}</a></td>
+                              <td>{{ paper.created }}</td>
+                            </tr>
+
+                        {% else %}
+
+                          {% if user == paper.receiver and  user == paper.sender %}
+                            <tr>
+                              <th scope="row">내게</th>
+                            {% else %}
+
+                              {% if user == paper.receiver %}
+                                <tr>
+                                  <th scope="row">받음</th>
+                              {% else %}
+
+                                  {% if user == paper.sender %}
+                                    <tr>
+                                      <th scope="row">보냄</th>
+                                  {% endif %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if user == paper.receiver or  user == paper.sender %}
+
+                              <td>{{paper.sender}}</td>
+                              <td>{{paper.receiver}}</td>
+                              <td><a href="{% url 'memo:detail' paper.pk %}">{{ paper.content | truncatewords_html:5 | safe }}</a></td>
+                              <td>{{ paper.created }}</td>
+                            </tr>
+                            {% endif %}
+
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                {% else %}
+                    There is no memo(not yet).
+                {% endif %}
+
+
+            </table>
+
+        </div>
+    </div>
+
+    {% if user.is_authenticated%}
+        <a class="btn btn-success float-end" href="/memo/create_memo/" role="button">New Memo</a>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -35,6 +35,8 @@ APPEND_SLASH = True
 
 INSTALLED_APPS = [
 
+    'memo',
+
     'profilehistory',
 
     'allauth',

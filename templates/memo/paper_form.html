@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %}Create Memo{% endblock %}
+
+{% block content %}
+    <h1>Create New Memo</h1>
+    <hr/>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form | crispy }}
+        </table>
+
+        <br/>
+
+        <button type="submit" class="btn btn-success float-end">Submit</button>
+    </form>
+{% endblock %}

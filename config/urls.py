@@ -24,6 +24,7 @@ from .settings import base
 
 
 urlpatterns = [
+    path('memo/', include('memo.urls')),
     path('profilehistory/', include('profilehistory.urls')),
     path('accounts/', include('allauth.urls')),
     path('markdownx/', include('markdownx.urls')),
