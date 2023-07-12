@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 class PaperList(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Paper
     ordering = '-pk'
+    paginate_by = 15
 
     def test_func(self):
         return self.request.user.is_authenticated
@@ -27,6 +28,7 @@ class PaperCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return self.request.user.is_authenticated
 
     def form_valid(self, form):
+
         current_user = self.request.user
         if current_user.is_authenticated :#and (current_user.is_staff or current_user.is_superuser):
             form.instance.sender = current_user

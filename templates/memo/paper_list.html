@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load boards_filter %}
 {% block content %}
 
 
@@ -7,8 +6,10 @@
 
 
 <div class="container my-3">
+    <h1>{{user}}'s MemoBox</h1>
+    <hr/>
     <div class="row my-3">
-        <div class="col-12"><!-- comment -->
+        <div class="col-6"><!-- comment -->
                 {% if paper_list %}
                         {% if user.is_superuser or user.is_staff %}
                         <table class="table table-hover">
@@ -46,7 +47,7 @@
                               <th scope="row">{{paper.pk}}</th>
                               <td>{{paper.sender}}</td>
                               <td>{{paper.receiver}}</td>
-                              <td><a href="{% url 'memo:detail' paper.pk %}">{{ paper.content | truncatewords_html:5 | safe }}</a></td>
+                              <td><a href="{% url 'memo:detail' paper.pk %}">{{ paper.content|truncatechars_html:10 }}</a></td>
                               <td>{{ paper.created }}</td>
                             </tr>
 
@@ -73,7 +74,7 @@
 
                               <td>{{paper.sender}}</td>
                               <td>{{paper.receiver}}</td>
-                              <td><a href="{% url 'memo:detail' paper.pk %}">{{ paper.content | truncatewords_html:5 | safe }}</a></td>
+                              <td><a href="{% url 'memo:detail' paper.pk %}">{{ paper.content | truncatechars_html:10 | safe }}</a></td>
                               <td>{{ paper.created }}</td>
                             </tr>
                             {% endif %}
@@ -91,9 +92,35 @@
         </div>
     </div>
 
-    {% if user.is_authenticated%}
-        <a class="btn btn-success float-end" href="/memo/create_memo/" role="button">New Memo</a>
-    {% endif %}
+                        <!--pagination-->
+                    {% if is_paginated %}
+                        <!-- Pagination -->
+                        <ul class="pagination justify-content-center mb-4">
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">&larr; Older</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                            {% endif %}
+
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Newer &rarr;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+
+        {% if user.is_authenticated%}
+            <a class="btn btn-success float-end" href="/memo/create_memo/" role="button">New Memo</a>
+        {% endif %}
 </div>
 
 {% endblock %}
