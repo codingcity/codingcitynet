@@ -37,7 +37,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="col">
-                                    <h6><a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">[{{ post.categoryblog }}] {{ post.title }}</a></h6>
+                                    <h6><a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">[{{ post.categoryblog }}] {{ post.title | truncatechars:15 }}</a></h6>
                                 </div>
                                 <div class="row">
                                     <div class="col"></div>
@@ -65,7 +65,7 @@
                     <div class="card mt-1">
                         <div class="card-body">
 
-                            <h6><a href="{{ comments.get_absolute_url }}" class="text-decoration-none text-dark">[{{ comments.post.categoryblog }}] {{ comments.content }}</a></h6>
+                            <h6><a href="{{ comments.get_absolute_url }}" class="text-decoration-none text-dark">[{{ comments.post.categoryblog }}] {{ comments.content | truncatechars:15 }}</a></h6>
                             <span class="badge badge-pill badge-light float-right">
                                 {{ comments.author.username }}
                                 &nbsp;
@@ -94,7 +94,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="col">
-                                    <h6><a href="{{ question.get_absolute_url }}" class="text-decoration-none text-dark">[{{ question.category }}] {{ question.subject }}</a></h6>
+                                    <h6><a href="{{ question.get_absolute_url }}" class="text-decoration-none text-dark">[{{ question.category }}] {{ question.subject | truncatechars:15 }}</a></h6>
                                 </div>
                                 <div class="row">
                                     <div class="col"></div>
