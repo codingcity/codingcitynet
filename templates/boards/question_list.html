@@ -82,11 +82,14 @@
 
                         </td>
                         <td class="text-start" style="font-size: 20px">
+                            ( {{question.voter.count}} )
 
                             <a href="{% url 'boards:detail' question.id %}">{{ question.subject }}</a>
                             {% if question.answer_set.count > 0 %}
                              <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
+
                             {% endif %}
+
                         </td>
 
 
